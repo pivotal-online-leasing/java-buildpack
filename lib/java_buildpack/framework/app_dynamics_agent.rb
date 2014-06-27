@@ -37,8 +37,8 @@ module JavaBuildpack
 
         java_opts
         .add_javaagent(@droplet.sandbox + 'javaagent.jar')
-        .add_system_property('appdynamics.agent.applicationName', "'#{application_name}'")
-        .add_system_property('appdynamics.agent.tierName', "'#{@configuration['tier_name']}'")
+        .add_system_property('appdynamics.agent.applicationName', "'PCF'")
+        .add_system_property('appdynamics.agent.tierName', "'CondoSafe_staging'")
         .add_system_property('appdynamics.agent.nodeName',
                              "$(expr \"$VCAP_APPLICATION\" : '.*instance_id[\": ]*\"\\([a-z0-9]\\+\\)\".*')")
 
