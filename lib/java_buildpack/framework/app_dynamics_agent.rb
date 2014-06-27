@@ -35,6 +35,7 @@ module JavaBuildpack
         credentials = @application.services.find_service(FILTER)['credentials']
         java_opts   = @droplet.java_opts
 
+        require 'json'
         space_name = JSON.parse(ENV['VCAP_APPLICATION'])['space_name']
 
         $stderr.puts "-------------------- AARON & TERRY---------------------------"
