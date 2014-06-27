@@ -38,10 +38,6 @@ module JavaBuildpack
         require 'json'
         space_name = JSON.parse(ENV['VCAP_APPLICATION'])['space_name']
 
-        $stderr.puts "-------------------- AARON & TERRY---------------------------"
-        $stderr.puts space_name
-        $stderr.puts "-------------------- END ---------------------------"
-
         java_opts
         .add_javaagent(@droplet.sandbox + 'javaagent.jar')
         .add_system_property('appdynamics.agent.applicationName', "'PCF'")
