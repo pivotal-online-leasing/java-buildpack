@@ -34,17 +34,17 @@ module JavaBuildpack
       def release
         credentials = @application.services.find_service(FILTER)['credentials']
         java_opts   = @droplet.java_opts
-        require 'pp'
-        $stderr.puts "=================== AARON & TERRY ==================="
-        PP.pp ENV.to_hash, $stderr
-        $stderr.puts "=================== @configuration ==================="
-        PP.pp @configuration.to_hash, $stderr
-        $stderr.puts "=================== END ==================="
+
+        space_name = JSON.parse(ENV['VCAP_APPLICATION'])['space_name']
+
+        $stderr.puts "-------------------- AARON & TERRY---------------------------"
+        $stderr.puts space_name
+        $stderr.puts "-------------------- END ---------------------------"
 
         java_opts
         .add_javaagent(@droplet.sandbox + 'javaagent.jar')
         .add_system_property('appdynamics.agent.applicationName', "'PCF'")
-        .add_system_property('appdynamics.agent.tierName', "'#{application_name}_#{@configuration['tier_name']}'")
+        .add_system_property('appdynamics.agent.tierName', "'#{application_name}_#{space_name}'")
         .add_system_property('appdynamics.agent.nodeName',
                              "$(expr \"$VCAP_APPLICATION\" : '.*instance_id[\": ]*\"\\([a-z0-9]\\+\\)\".*')")
 
