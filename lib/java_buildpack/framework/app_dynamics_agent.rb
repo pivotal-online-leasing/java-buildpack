@@ -35,11 +35,11 @@ module JavaBuildpack
         credentials = @application.services.find_service(FILTER)['credentials']
         java_opts   = @droplet.java_opts
         require 'pp'
-        puts "=================== AARON & TERRY ==================="
-        pp ENV.to_hash
-        puts "=================== @configuration ==================="
-        pp @configuration.to_hash
-        puts "=================== END ==================="
+        $stderr.puts "=================== AARON & TERRY ==================="
+        PP.pp ENV.to_hash, $stderr
+        $stderr.puts "=================== @configuration ==================="
+        PP.pp @configuration.to_hash, $stderr
+        $stderr.puts "=================== END ==================="
 
         java_opts
         .add_javaagent(@droplet.sandbox + 'javaagent.jar')
