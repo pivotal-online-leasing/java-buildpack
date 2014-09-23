@@ -43,7 +43,7 @@ module JavaBuildpack
         .add_system_property('appdynamics.agent.applicationName', "'PCF'")
         .add_system_property('appdynamics.agent.tierName', "'#{application_name}_#{space_name}'")
         .add_system_property('appdynamics.agent.nodeName',
-                             "$(expr \"$VCAP_APPLICATION\" : '.*instance_id[\": ]*\"\\([a-z0-9]\\+\\)\".*')")
+                             "$(expr \"$VCAP_APPLICATION\" : '.*instance_index[\": ]*\\([[:digit:]]*\\).*')")
 
         account_access_key(java_opts, credentials)
         account_name(java_opts, credentials)
