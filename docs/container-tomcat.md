@@ -12,7 +12,7 @@ The Tomcat Container allows servlet 2 and 3 web applications to be run.  These a
 </table>
 Tags are printed to standard output by the buildpack detect script
 
-In order to specify [Spring profiles][], set the [`SPRING_PROFILES_ACTIVE`][] environment variable.  This is automatically detected and used by Spring.
+If the application uses Spring, [Spring profiles][] can be specified by setting the [`SPRING_PROFILES_ACTIVE`][] environment variable. This is automatically detected and used by Spring. The Spring Auto-reconfiguration Framework will specify the `cloud` profile in addition to any others. 
 
 ## Configuration
 For general information on configuring the buildpack, refer to [Configuration and Extension][].
@@ -25,6 +25,9 @@ The container can be configured by modifying the [`config/tomcat.yml`][] file in
 | `lifecycle_support.version` | The version of Tomcat Lifecycle Support to use. Candidate versions can be found in [this listing](http://download.pivotal.io.s3.amazonaws.com/tomcat-lifecycle-support/index.yml).
 | `logging_support.repository_root` | The URL of the Tomcat Logging Support repository index ([details][repositories]).
 | `logging_support.version` | The version of Tomcat Logging Support to use. Candidate versions can be found in [this listing](http://download.pivotal.io.s3.amazonaws.com/tomcat-logging-support/index.yml).
+| `access_logging_support.repository_root` | The URL of the Tomcat Access Logging Support repository index ([details][repositories]).
+| `access_logging_support.version` | The version of Tomcat Access Logging Support to use. Candidate versions can be found in [this listing](http://download.pivotal.io.s3.amazonaws.com/tomcat-access-logging-support/index.yml).
+| `access_logging_support.access_logging` | Set to `enabled` to turn on the access logging support. Default is `disabled`.
 | `redis_store.connection_pool_size` | The Redis connection pool size.  Note that this is per-instance, not per-application.
 | `redis_store.database` | The Redis database to connect to.
 | `redis_store.repository_root` | The URL of the Redis Store repository index ([details][repositories]).

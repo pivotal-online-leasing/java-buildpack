@@ -14,26 +14,29 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require 'java_buildpack/component'
+require 'spec_helper'
+require 'component_helper'
+require 'java_buildpack/container/tomcat/tomcat_access_logging_support'
 
-module JavaBuildpack
-  module Component
+describe JavaBuildpack::Container::TomcatAccessLoggingSupport do
+  include_context 'component_helper'
 
-    # An abstraction around the +JAVA_HOME+ path and +VERSION+ used by the droplet.  This implementation is mutable and
-    # should be passed to any component that is a jre.
-    #
-    # A new instance of this type should be created once for the application.
-    class MutableJavaHome
+  let(:component_id) { 'tomcat' }
 
-      # @!attribute [rw] root
-      # @return [String] the root of the droplet's +JAVA_HOME+
-      attr_accessor :root
-
-      # @!attribute [rw] version
-      # @return [Array] the major, minor, micro and qualifier of the droplet's +VERSION+
-      attr_accessor :version
-
-    end
-
+  it 'should always detect' do
+    expect(component.detect).to eq("tomcat-access-logging-support=#{version}")
   end
+
+  it 'should copy resources',
+     cache_fixture: 'stub-access-logging-support.jar' do
+
+    component.compile
+
+    expect(sandbox + "lib/tomcat_access_logging_support-#{version}.jar").to exist
+  end
+
+  it 'should do nothing during release' do
+    component.release
+  end
+
 end

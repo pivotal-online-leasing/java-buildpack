@@ -65,6 +65,10 @@ module JavaBuildpack
 
       private_constant :FILTER
 
+      def tier_name(credentials)
+        credentials.key?('tier-name') ? credentials['tier-name'] : @configuration['default_tier_name']
+      end
+
       def application_name
         @application.details['application_name']
       end
